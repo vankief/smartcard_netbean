@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -87,7 +88,7 @@ public class quanTriVien extends javax.swing.JFrame {
                 btn_taoTheActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_taoThe, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 580, 220, 70));
+        getContentPane().add(btn_taoThe, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 170, 60));
 
         btn_datLaiMaPin.setBorderPainted(false);
         btn_datLaiMaPin.setContentAreaFilled(false);
@@ -96,7 +97,7 @@ public class quanTriVien extends javax.swing.JFrame {
                 btn_datLaiMaPinActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_datLaiMaPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 250, 50));
+        getContentPane().add(btn_datLaiMaPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 250, 50));
 
         btn_khoaThe.setBorderPainted(false);
         btn_khoaThe.setContentAreaFilled(false);
@@ -105,7 +106,7 @@ public class quanTriVien extends javax.swing.JFrame {
                 btn_khoaTheActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_khoaThe, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 120, 50));
+        getContentPane().add(btn_khoaThe, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 140, 60));
 
         btn_moThe.setBorderPainted(false);
         btn_moThe.setContentAreaFilled(false);
@@ -114,7 +115,7 @@ public class quanTriVien extends javax.swing.JFrame {
                 btn_moTheActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_moThe, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 600, 120, 50));
+        getContentPane().add(btn_moThe, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 530, 150, 60));
 
         tbl_danhSach.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         tbl_danhSach.setModel(new javax.swing.table.DefaultTableModel(
@@ -128,17 +129,20 @@ public class quanTriVien extends javax.swing.JFrame {
                 "ID", "Ngày Đăng Ký"
             }
         ));
+        tbl_danhSach.setPreferredSize(new java.awt.Dimension(1, 64));
         jScrollPane1.setViewportView(tbl_danhSach);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 260, 430));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 330, 360));
 
-        btn_back.setText("BACK");
+        btn_back.setBorderPainted(false);
+        btn_back.setContentAreaFilled(false);
         btn_back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_backActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 595, 110, 40));
+        getContentPane().add(btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 540, 130, 50));
+        btn_back.getAccessibleContext().setAccessibleDescription("");
 
         txt_ID.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_ID.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +150,7 @@ public class quanTriVien extends javax.swing.JFrame {
                 txt_IDActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 410, 80));
+        getContentPane().add(txt_ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 190, 410, 50));
 
         txt_hoTen.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_hoTen.addActionListener(new java.awt.event.ActionListener() {
@@ -154,18 +158,18 @@ public class quanTriVien extends javax.swing.JFrame {
                 txt_hoTenActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_hoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 410, 70));
+        getContentPane().add(txt_hoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 260, 410, 50));
 
         txt_ngaySinh.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        getContentPane().add(txt_ngaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 410, 70));
+        getContentPane().add(txt_ngaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 330, 410, 50));
 
         txt_diaChi.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        getContentPane().add(txt_diaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 430, 410, 70));
+        getContentPane().add(txt_diaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 400, 410, 50));
 
         txt_dienThoai.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        getContentPane().add(txt_dienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 410, 70));
+        getContentPane().add(txt_dienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 470, 410, 50));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/quanTriVien.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\dev\\smartcard_netbean\\src\\doctorQ\\Quản trị viên.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 680));
 
         pack();
@@ -232,6 +236,13 @@ public class quanTriVien extends javax.swing.JFrame {
                     return;
                 }
                 String maBn = txt_ma_bn.getText().toString();
+
+                // Kiểm tra định dạng của mã bệnh nhân
+                if (!maBn.matches("BN\\d{3}")) {
+                    JOptionPane.showMessageDialog(rootPane, "Mã Bệnh Nhân không hợp lệ. Mã Bệnh Nhân phải có định dạng 'BN' + 3 số.");
+                    return;
+                }
+
                 if (dataUserDAO.Blocked(maBn)) {
                     JOptionPane.showMessageDialog(rootPane, "Đã Khóa Thẻ Thành Công");
                     d.dispose();
@@ -264,6 +275,13 @@ public class quanTriVien extends javax.swing.JFrame {
                     return;
                 }
                 String maBn = txt_ma_bn.getText().trim();
+
+                // Kiểm tra định dạng của mã bệnh nhân
+                if (!maBn.matches("BN\\d{3}")) {
+                    JOptionPane.showMessageDialog(rootPane, "Mã Bệnh Nhân không hợp lệ. Mã Bệnh Nhân phải có định dạng 'BN' + 3 số.");
+                    return;
+                }
+
                 boolean check = dataUserDAO.UnBlock(maBn);
                 if (check) {
                     JOptionPane.showMessageDialog(rootPane, "Mở khóa thẻ thành công");
@@ -301,20 +319,20 @@ public class quanTriVien extends javax.swing.JFrame {
         System.arraycopy(byteID, 0, data, offSet, byteID.length);
         offSet += byteID.length;
         data[offSet] = (byte) 0x7E;
-        
+
         //byteName
         offSet += 1;
         System.arraycopy(byteName, 0, data, offSet, byteName.length);
         offSet += byteName.length;
         //data[offSet] = (byte) 0x03;
         data[offSet] = (byte) 0x7E;
-        
+
         //byteDate
         offSet += 1;
         System.arraycopy(byteDate, 0, data, offSet, byteDate.length);
         offSet += byteDate.length;
         data[offSet] = (byte) 0x7E;
-        
+
         //bytePhone
         offSet += 1;
         System.arraycopy(bytePhone, 0, data, offSet, bytePhone.length);
@@ -326,23 +344,23 @@ public class quanTriVien extends javax.swing.JFrame {
         System.arraycopy(byteDiaChi, 0, data, offSet, byteDiaChi.length);
         offSet += byteDiaChi.length;
         data[offSet] = (byte) 0x7E;
-        
+
         //byteBalance
         offSet += 1;
         System.arraycopy(byteBalance, 0, data, offSet, byteBalance.length);
         offSet += byteBalance.length;
         data[offSet] = (byte) 0x7E;
 
-       
         System.out.println("length" + data.length);
         if (ConnectCard.getInstance().CreateInformation(data)) {
             try {
                 // luu pubplickey vao file publickey.txt
                 PublicKey publicKey = RSAAppletHelper.getInstance(ConnectCard.getInstance().channel).getPublicKey();
-                DataUser dataUser1 = new DataUser();
-                dataUser1.setUserId(strId);
-                dataUser1.setPublicKey(Arrays.toString(publicKey.getEncoded()));
-                dataUserDAO.SetpublicKey(dataUser1);
+                DataUser dataUser = new DataUser();
+                dataUser.setCardId(strId);
+                String publicKeyString = Base64.getEncoder().encodeToString(publicKey.getEncoded());
+                dataUser.setPublicKey(publicKeyString);
+                dataUserDAO.SetpublicKey(dataUser);
             } catch (Exception e) {
                 Logger.getLogger(quanTriVien.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -409,7 +427,7 @@ public class quanTriVien extends javax.swing.JFrame {
         list = connectDB.DataUserDAO.hienthi();
         dsCreatCard.setRowCount(0);
         for (DataUser dataUser : list) {
-            dsCreatCard.addRow(new Object[]{dataUser.getUserId(), dataUser.getRegistrationDate()});
+            dsCreatCard.addRow(new Object[]{dataUser.getCardId(), dataUser.getRegistrationDate()});
         }
     }
 
@@ -424,8 +442,8 @@ public class quanTriVien extends javax.swing.JFrame {
                     if (selectRow >= 0) {
                         String MaBN = tbl_danhSach.getValueAt(selectRow, 0).toString();
                         for (DataUser dataUser : list) {
-                            if (MaBN.equals(dataUser.getUserId())) { // Sử dụng phương thức equals() để so sánh chuỗi
-                                txt_ID.setText(dataUser.getCicNumber());
+                            if (MaBN.equals(dataUser.getCardId())) { // Sử dụng phương thức equals() để so sánh chuỗi
+                                txt_ID.setText(dataUser.getCardId());
                                 txt_hoTen.setText(dataUser.getName());
                                 txt_ngaySinh.setText(dataUser.getDob());
                                 txt_diaChi.setText(dataUser.getAddress());

@@ -67,18 +67,18 @@ public class thanhToan extends javax.swing.JFrame {
         tbl_thanhtoan.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         tbl_thanhtoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Dịch vụ", "Thuốc"
+                "Bác Sĩ", "Chuyên khoa", "Công khám"
             }
         ));
         jScrollPane1.setViewportView(tbl_thanhtoan);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 480, 270));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 420, 270));
 
         btn_thanhToan.setBorderPainted(false);
         btn_thanhToan.setContentAreaFilled(false);
@@ -87,7 +87,7 @@ public class thanhToan extends javax.swing.JFrame {
                 btn_thanhToanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_thanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 150, 40));
+        getContentPane().add(btn_thanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 150, 40));
 
         btn_Huy.setBorderPainted(false);
         btn_Huy.setContentAreaFilled(false);
@@ -96,12 +96,17 @@ public class thanhToan extends javax.swing.JFrame {
                 btn_HuyActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_Huy, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 150, 50));
+        getContentPane().add(btn_Huy, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 150, 50));
 
         txt_tongtien.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        getContentPane().add(txt_tongtien, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 210, 30));
+        txt_tongtien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_tongtienActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_tongtien, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 220, 50));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/thanhToan.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\dev\\smartcard_netbean\\src\\doctorQ\\Thanh Toán.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 510));
 
         pack();
@@ -130,11 +135,11 @@ public class thanhToan extends javax.swing.JFrame {
             if (rsaAuthentication()) {
                 dataUser = new DataUser();
                 dataUser.setBalance(Sodumoi);
-                dataUser.setUserId(ConnectCard.getInstance().strID);
+                dataUser.setCardId(ConnectCard.getInstance().strID);
                 boolean check = dataUserDAO.updateBalance(dataUser);
                 if (check && ConnectCard.getInstance().TopUp(data)) {
                     JOptionPane.showMessageDialog(null, "Thanh Toán thành công");
-                    dataUserDAO.updateIsPayment(ConnectCard.getInstance().strID.trim());
+                    dataUserDAO.updateAppointmentStatus(ConnectCard.getInstance().strID.trim());
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Lỗi Thanh Toán");
@@ -150,6 +155,10 @@ public class thanhToan extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_btn_HuyActionPerformed
+
+    private void txt_tongtienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tongtienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_tongtienActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,20 +201,21 @@ public class thanhToan extends javax.swing.JFrame {
 
     public void ShowDl() throws SQLException {
         String maBn = ConnectCard.getInstance().strID;
-        list = connectDB.DataUserDAO.getHoaDonList(maBn);
+        list = dataUserDAO.getHoaDonList(maBn);
         dsthanhtoan.setRowCount(0);
         int Tongtien = 0;
         for (HoaDon hoaDon : list) {
-            dsthanhtoan.addRow(new Object[]{hoaDon.getDichVu(), hoaDon.getThuoc()});
-            Tongtien += hoaDon.getTongTien();
+            dsthanhtoan.addRow(new Object[]{hoaDon.getDoctorName(), hoaDon.getSpecialistName(), hoaDon.getFee()});
+            Tongtien += hoaDon.getFee();
         }
         txt_tongtien.setText(String.valueOf(Tongtien));
         txt_tongtien.setEnabled(false);
     }
 
     private boolean rsaAuthentication() {
+        String maBn = ConnectCard.getInstance().strID;
         try {
-            PublicKey publicKeys = RSAData.getPublicKey();
+            PublicKey publicKeys = dataUserDAO.getpublicKey(maBn);
             if (publicKeys == null) {
                 return false;
             }

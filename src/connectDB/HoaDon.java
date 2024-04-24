@@ -6,58 +6,41 @@
 package connectDB;
 
 public class HoaDon {
-    private int idBenhNhan;
-    private String dichVu;
-    private String thuoc;
-    private int tongTien;
+   private String doctorName;
+   private String specialistName;
+   private int fee;
 
-     public HoaDon() {
-    }
-    public HoaDon(int idBenhNhan, String dichVu, String thuoc, int tongTien) {
-        this.idBenhNhan = idBenhNhan;
-        this.dichVu = dichVu;
-        this.thuoc = thuoc;
-        this.tongTien = tongTien;
+    public HoaDon() {
     }
 
-    public HoaDon(String dichVu, String thuoc, int tongTien) {
-        this.dichVu = dichVu;
-        this.thuoc = thuoc;
-        this.tongTien = tongTien;
+    public HoaDon(String doctorName, String specialistName, int fee) {
+        this.doctorName = doctorName;
+        this.specialistName = specialistName;
+        this.fee = fee;
     }
-    
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getSpecialistName() {
+        return specialistName;
+    }
+
+    public void setSpecialistName(String specialistName) {
+        this.specialistName = specialistName;
+    }
+
+    public int getFee() {
+        return fee;
+    }
+
+    public void setFee(int fee) {
+        this.fee = fee;
+    }
    
-    
-
-    public int getIdBenhNhan() {
-        return idBenhNhan;
-    }
-
-    public void setIdBenhNhan(int idBenhNhan) {
-        this.idBenhNhan = idBenhNhan;
-    }
-
-    public String getDichVu() {
-        return dichVu;
-    }
-
-    public void setDichVu(String dichVu) {
-        this.dichVu = dichVu;
-    }
-
-    public String getThuoc() {
-        return thuoc;
-    }
-
-    public void setThuoc(String thuoc) {
-        this.thuoc = thuoc;
-    }
-
-    public int getTongTien() {
-        return tongTien;
-    }
-
-    public void setTongTien(int tongTien) {
-        this.tongTien = tongTien;
-    }
 }

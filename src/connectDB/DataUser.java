@@ -17,8 +17,7 @@ import java.util.Date;
  * @author admin
  */
 public class DataUser {
-    public String userId;
-    public String cicNumber ;
+    public String cardId ;
     public String name ;
     public String dob ;
     public String address;
@@ -27,17 +26,16 @@ public class DataUser {
     public String phone;
     public String publicKey;
     int balance;
-    Date registrationDate;
+    String registrationDate;
     boolean isBlocked;
     public DataUser() {
     }
     
 //    
    
-    public DataUser(String userId, String cicNumber, String name, String dob, String address, String gender, Blob image, String phone, String publicKey, int balance, Date registrationDate) 
+    public DataUser( String cardId, String name, String dob, String address, String gender, Blob image, String phone, String publicKey, int balance, String registrationDate) 
     {
-        this.userId = userId;
-        this.cicNumber = cicNumber;
+        this.cardId = cardId;
         this.name = name;
         this.dob = dob;
         this.address = address;
@@ -48,16 +46,6 @@ public class DataUser {
         this.balance = balance;
         this.registrationDate = registrationDate;
     }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-    
-    
 
     public String getName() {
         return name;
@@ -75,12 +63,12 @@ public class DataUser {
         this.phone = phone;
     }
 
-    public String getCicNumber() {
-        return cicNumber;
+    public String getCardId() {
+        return cardId;
     }
 
-    public void setCicNumber(String cicNumber) {
-        this.cicNumber = cicNumber;
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
      
     public String getDob() {
@@ -132,14 +120,12 @@ public class DataUser {
         this.balance = balance;
     }
 
-  
-
-    public Date getRegistrationDate() {
+    public String getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    public void setRegistrationDate(String registrationDate) {
         this.registrationDate = registrationDate;
     }
-    
+  
 }

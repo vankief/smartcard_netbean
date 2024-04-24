@@ -45,11 +45,14 @@ public class napTien extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToggleButton1 = new javax.swing.JToggleButton();
         btn_xanNhan = new javax.swing.JButton();
         text_soDu = new javax.swing.JTextField();
         text_soTienNap = new javax.swing.JTextField();
         btn_huy = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+
+        jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,7 +64,7 @@ public class napTien extends javax.swing.JFrame {
                 btn_xanNhanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_xanNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 120, 50));
+        getContentPane().add(btn_xanNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 120, 50));
 
         text_soDu.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         text_soDu.addActionListener(new java.awt.event.ActionListener() {
@@ -69,10 +72,10 @@ public class napTien extends javax.swing.JFrame {
                 text_soDuActionPerformed(evt);
             }
         });
-        getContentPane().add(text_soDu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 260, 30));
+        getContentPane().add(text_soDu, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 300, 50));
 
         text_soTienNap.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        getContentPane().add(text_soTienNap, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 260, 30));
+        getContentPane().add(text_soTienNap, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 300, 50));
 
         btn_huy.setBorderPainted(false);
         btn_huy.setContentAreaFilled(false);
@@ -81,10 +84,10 @@ public class napTien extends javax.swing.JFrame {
                 btn_huyActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_huy, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 110, 40));
+        getContentPane().add(btn_huy, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 110, 40));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/napTien.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\dev\\smartcard_netbean\\src\\doctorQ\\Nạp Tiền.png")); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -115,7 +118,7 @@ public class napTien extends javax.swing.JFrame {
         if (rsaAuthentication()) {
             dataUser = new DataUser();
             dataUser.setBalance(balance);
-            dataUser.setUserId(ConnectCard.getInstance().strID);
+            dataUser.setCardId(ConnectCard.getInstance().strID);
             boolean check = dataUserDAO.updateBalance(dataUser);
             if (check && ConnectCard.getInstance().TopUp(data)) {
                 JOptionPane.showMessageDialog(null, "Nạp Tiền Thành Công");
@@ -182,8 +185,9 @@ public class napTien extends javax.swing.JFrame {
     }
 
     private boolean rsaAuthentication() {
+        String maBn = ConnectCard.getInstance().strID;
         try {
-            PublicKey publicKeys = RSAData.getPublicKey();
+            PublicKey publicKeys = dataUserDAO.getpublicKey(maBn);
             if (publicKeys == null) {
                 return false;
             }
@@ -209,6 +213,7 @@ public class napTien extends javax.swing.JFrame {
     private javax.swing.JButton btn_huy;
     private javax.swing.JButton btn_xanNhan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField text_soDu;
     private javax.swing.JTextField text_soTienNap;
     // End of variables declaration//GEN-END:variables

@@ -5,7 +5,6 @@
  */
 package view;
 
-import com.sun.xml.internal.ws.api.pipe.Tube;
 import connectDB.DataUser;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -55,7 +54,7 @@ public class doiMaPin1 extends javax.swing.JFrame {
                 txt_mapinxacthucActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_mapinxacthuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 280, 50));
+        getContentPane().add(txt_mapinxacthuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 280, 50));
 
         txt_mapincu.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         txt_mapincu.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -64,7 +63,7 @@ public class doiMaPin1 extends javax.swing.JFrame {
                 txt_mapincuActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_mapincu, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 280, 50));
+        getContentPane().add(txt_mapincu, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 280, 50));
 
         txt_mapinmoi.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         txt_mapinmoi.addActionListener(new java.awt.event.ActionListener() {
@@ -72,7 +71,7 @@ public class doiMaPin1 extends javax.swing.JFrame {
                 txt_mapinmoiActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_mapinmoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 280, 50));
+        getContentPane().add(txt_mapinmoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 280, 50));
 
         btn_xacNhan.setBorderPainted(false);
         btn_xacNhan.setContentAreaFilled(false);
@@ -81,7 +80,7 @@ public class doiMaPin1 extends javax.swing.JFrame {
                 btn_xacNhanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_xacNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 120, 30));
+        getContentPane().add(btn_xacNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, 120, 30));
 
         btn_huy.setBorderPainted(false);
         btn_huy.setContentAreaFilled(false);
@@ -90,9 +89,9 @@ public class doiMaPin1 extends javax.swing.JFrame {
                 btn_huyActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_huy, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 120, 30));
+        getContentPane().add(btn_huy, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 120, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/maPin.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\dev\\smartcard_netbean\\src\\doctorQ\\mã pin.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();

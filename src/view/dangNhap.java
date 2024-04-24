@@ -71,13 +71,13 @@ public class dangNhap extends javax.swing.JFrame {
                 ckb_maPinActionPerformed(evt);
             }
         });
-        getContentPane().add(ckb_maPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 430, 20, 30));
+        getContentPane().add(ckb_maPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 450, 20, 30));
 
         txt_pin1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         txt_pin1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_pin1.setEnabled(false);
         txt_pin1.setFocusCycleRoot(true);
-        getContentPane().add(txt_pin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 400, 40));
+        getContentPane().add(txt_pin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 400, 40));
 
         btn_dangnhap.setBorderPainted(false);
         btn_dangnhap.setContentAreaFilled(false);
@@ -95,7 +95,7 @@ public class dangNhap extends javax.swing.JFrame {
                 btn_xacnhanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_xacnhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, 190, 60));
+        getContentPane().add(btn_xacnhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, 190, 60));
 
         btn_ketNoiThe.setBorderPainted(false);
         btn_ketNoiThe.setContentAreaFilled(false);
@@ -104,7 +104,7 @@ public class dangNhap extends javax.swing.JFrame {
                 btn_ketNoiTheActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_ketNoiThe, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 595, 720, 60));
+        getContentPane().add(btn_ketNoiThe, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 600, 560, 60));
 
         btn_adminForm.setBorderPainted(false);
         btn_adminForm.setContentAreaFilled(false);
@@ -113,11 +113,11 @@ public class dangNhap extends javax.swing.JFrame {
                 btn_adminFormActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_adminForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 580, 170, 80));
+        getContentPane().add(btn_adminForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 590, 230, 80));
 
         jLabel1.setBackground(new java.awt.Color(153, 255, 255));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/dangNhap.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\dev\\smartcard_netbean\\src\\doctorQ\\Đăng Nhập.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1210, 720));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

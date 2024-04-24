@@ -96,7 +96,7 @@ public class nguoiDung extends javax.swing.JFrame {
                 btn_suaActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_sua, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 580, 170, 50));
+        getContentPane().add(btn_sua, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 560, 170, 50));
 
         btn_capnhat.setBorderPainted(false);
         btn_capnhat.setContentAreaFilled(false);
@@ -105,7 +105,7 @@ public class nguoiDung extends javax.swing.JFrame {
                 btn_capnhatActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_capnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(749, 585, 180, 50));
+        getContentPane().add(btn_capnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 560, 180, 50));
 
         btn_chonAnh.setBorderPainted(false);
         btn_chonAnh.setContentAreaFilled(false);
@@ -114,28 +114,33 @@ public class nguoiDung extends javax.swing.JFrame {
                 btn_chonAnhActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_chonAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 430, 170, 50));
-        getContentPane().add(img_ava, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 180, 180, 190));
+        getContentPane().add(btn_chonAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 470, 170, 50));
+        getContentPane().add(img_ava, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 200, 170, 200));
 
-        txt_ID.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        txt_ID.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_ID.setDisabledTextColor(new java.awt.Color(0, 51, 51));
         txt_ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_IDActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 410, 70));
+        getContentPane().add(txt_ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 380, 60));
 
-        txt_hoTen.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        getContentPane().add(txt_hoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 410, 70));
+        txt_hoTen.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_hoTen.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        getContentPane().add(txt_hoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, 380, 60));
 
-        txt_ngaySinh.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        getContentPane().add(txt_ngaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 410, 70));
+        txt_ngaySinh.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_ngaySinh.setDisabledTextColor(new java.awt.Color(0, 0, 51));
+        getContentPane().add(txt_ngaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 380, 60));
 
-        txt_diaChi.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        getContentPane().add(txt_diaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 432, 410, 70));
+        txt_diaChi.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_diaChi.setDisabledTextColor(new java.awt.Color(51, 0, 51));
+        getContentPane().add(txt_diaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 400, 380, 60));
 
-        txt_dienThoai.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        getContentPane().add(txt_dienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 512, 410, 60));
+        txt_dienThoai.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_dienThoai.setDisabledTextColor(new java.awt.Color(51, 0, 51));
+        getContentPane().add(txt_dienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 470, 380, 60));
 
         btn_thongTin.setBorderPainted(false);
         btn_thongTin.setContentAreaFilled(false);
@@ -144,7 +149,7 @@ public class nguoiDung extends javax.swing.JFrame {
                 btn_thongTinActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_thongTin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 160, 60));
+        getContentPane().add(btn_thongTin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 180, 60));
 
         btn_doiMaPin.setBorderPainted(false);
         btn_doiMaPin.setContentAreaFilled(false);
@@ -153,7 +158,7 @@ public class nguoiDung extends javax.swing.JFrame {
                 btn_doiMaPinActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_doiMaPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 160, 60));
+        getContentPane().add(btn_doiMaPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 160, 60));
 
         btn_napTien.setBorderPainted(false);
         btn_napTien.setContentAreaFilled(false);
@@ -162,7 +167,7 @@ public class nguoiDung extends javax.swing.JFrame {
                 btn_napTienActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_napTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 160, 50));
+        getContentPane().add(btn_napTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 160, 50));
 
         btn_thanhToan.setBorderPainted(false);
         btn_thanhToan.setContentAreaFilled(false);
@@ -171,7 +176,7 @@ public class nguoiDung extends javax.swing.JFrame {
                 btn_thanhToanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_thanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 530, 170, 50));
+        getContentPane().add(btn_thanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, 200, 50));
 
         btn_ngatKetNoi.setBorderPainted(false);
         btn_ngatKetNoi.setContentAreaFilled(false);
@@ -180,9 +185,9 @@ public class nguoiDung extends javax.swing.JFrame {
                 btn_ngatKetNoiActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_ngatKetNoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 180, 50));
+        getContentPane().add(btn_ngatKetNoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 210, 50));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/nguoiDung.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\dev\\smartcard_netbean\\src\\doctorQ\\Home.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -229,7 +234,7 @@ public class nguoiDung extends javax.swing.JFrame {
             return;
         }
         dataUser = new DataUser();
-        dataUser.setCicNumber(strId);
+        dataUser.setCardId(strId);
         dataUser.setName(strName);
         dataUser.setDob(strDate);
         dataUser.setAddress(strDiaChi);
@@ -285,6 +290,7 @@ public class nguoiDung extends javax.swing.JFrame {
             System.out.println("Success");
 
             boolean checkDB = dAO.UpdateUser(dataUser);
+            
             if (checkDB) {
                 System.out.println("Post Success to DB");
             } else {
