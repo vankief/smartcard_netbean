@@ -5,6 +5,9 @@
  */
 package view;
 
+import Https.APIClient;
+import static Https.APIClient.sendHttpPostRequest;
+import static Https.CONSTANT.API_URL_CREATE_SMARTCARD_SUCCESS;
 import connectDB.DataUser;
 import connectDB.DataUserDAO;
 import java.awt.BorderLayout;
@@ -39,6 +42,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -49,6 +54,7 @@ public class quanTriVien extends javax.swing.JFrame {
     DefaultTableModel dsCreatCard = new DefaultTableModel();
     List<DataUser> list = new ArrayList<>();
     private DataUserDAO dataUserDAO = new DataUserDAO();
+    private APIClient apiClient = new APIClient();
 
     public quanTriVien() throws SQLException {
 
@@ -351,10 +357,10 @@ public class quanTriVien extends javax.swing.JFrame {
         offSet += byteBalance.length;
         data[offSet] = (byte) 0x7E;
 
-        System.out.println("length" + data.length);
+        System.out.println("length: " + data.length);
         if (ConnectCard.getInstance().CreateInformation(data)) {
             try {
-                // luu pubplickey vao file publickey.txt
+                // Lưu public key vào file publickey.txt
                 PublicKey publicKey = RSAAppletHelper.getInstance(ConnectCard.getInstance().channel).getPublicKey();
                 DataUser dataUser = new DataUser();
                 dataUser.setCardId(strId);
@@ -364,7 +370,35 @@ public class quanTriVien extends javax.swing.JFrame {
             } catch (Exception e) {
                 Logger.getLogger(quanTriVien.class.getName()).log(Level.SEVERE, null, e);
             }
+
             JOptionPane.showMessageDialog(rootPane, "Tạo Thẻ Thành Công");
+
+            // Lấy token từ cơ sở dữ liệu
+            String accessToken = dataUserDAO.getTokenFromDatabase(strId);
+            String jsonData = "{\"id\": \"" + strId + "\", \"name\": \"" + strName + "\"}";
+
+            try {
+                // Gửi yêu cầu HTTP POST tới API
+                String responseJson = sendHttpPostRequest(API_URL_CREATE_SMARTCARD_SUCCESS, jsonData, accessToken);
+
+                // Phân tích phản hồi JSON và kiểm tra statusCode
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) parser.parse(responseJson);
+                long statusCode = (long) jsonObject.get("statusCode");
+
+                // Kiểm tra statusCode để xác định xem phản hồi có thành công hay không
+                if (statusCode == 200) {
+                    // Xử lý khi phản hồi thành công
+                    System.out.println("Phản hồi thành công");
+                } else {
+                    // Xử lý khi phản hồi không thành công
+                    System.out.println("Phản hồi không thành công");
+                }
+            } catch (Exception e) {
+                // Xử lý khi gặp lỗi trong quá trình gửi yêu cầu hoặc phân tích phản hồi
+                e.printStackTrace();
+            }
+
             if (dataUserDAO.setIsCreated(strId)) {
                 try {
                     ShowDl();

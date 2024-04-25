@@ -5,6 +5,8 @@
  */
 package view;
 
+import static Https.APIClient.sendHttpPostRequest;
+import static Https.CONSTANT.API_URL_PAYMENT_SUCCESS;
 import connectDB.DataUser;
 import connectDB.DataUserDAO;
 import connectDB.HoaDon;
@@ -23,6 +25,8 @@ import javacard.utils.RandomUtil;
 import javax.smartcardio.CardException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -114,40 +118,71 @@ public class thanhToan extends javax.swing.JFrame {
 
     private void btn_thanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thanhToanActionPerformed
         int Tongtien = Integer.parseInt(txt_tongtien.getText());
-        ConnectCard.getInstance().ReadInformation();
-        int Sodu = ConnectCard.getInstance().SoDu;
-        if (Sodu < Tongtien) {
-            JOptionPane.showMessageDialog(null, "Số Dư Tài Khoản không đủ để thanh toán, vui lòng nạp thêm tiền");
-        } else if (Tongtien == 0) {
-            JOptionPane.showMessageDialog(null, "Không có gì để thanh toán");
-        } else {
-            int Sodumoi = Sodu - Tongtien;
-            ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
-            buffer.putInt(Sodumoi);
-            byte[] byteSoDuMoi = buffer.array();
-           
-            byte[] data = new byte[byteSoDuMoi.length + 1];
-            int offSet = 0;
-            System.arraycopy(byteSoDuMoi, 0, data, offSet, byteSoDuMoi.length);
-            offSet += byteSoDuMoi.length;
+    ConnectCard.getInstance().ReadInformation();
+    int Sodu = ConnectCard.getInstance().SoDu;
+    
+    if (Sodu < Tongtien) {
+        JOptionPane.showMessageDialog(null, "Số Dư Tài Khoản không đủ để thanh toán, vui lòng nạp thêm tiền");
+    } else if (Tongtien == 0) {
+        JOptionPane.showMessageDialog(null, "Không có gì để thanh toán");
+    } else {
+        int Sodumoi = Sodu - Tongtien;
+        ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
+        buffer.putInt(Sodumoi);
+        byte[] byteSoDuMoi = buffer.array();
+       
+        byte[] data = new byte[byteSoDuMoi.length + 1];
+        int offSet = 0;
+        System.arraycopy(byteSoDuMoi, 0, data, offSet, byteSoDuMoi.length);
+        offSet += byteSoDuMoi.length;
 
-            data[offSet] = (byte) 0x7E;
-            if (rsaAuthentication()) {
-                dataUser = new DataUser();
-                dataUser.setBalance(Sodumoi);
-                dataUser.setCardId(ConnectCard.getInstance().strID);
-                boolean check = dataUserDAO.updateBalance(dataUser);
-                if (check && ConnectCard.getInstance().TopUp(data)) {
-                    JOptionPane.showMessageDialog(null, "Thanh Toán thành công");
-                    dataUserDAO.updateAppointmentStatus(ConnectCard.getInstance().strID.trim());
-                    this.dispose();
+        data[offSet] = (byte) 0x7E;
+        
+        // Thực hiện xác thực RSA trước khi gửi yêu cầu thanh toán
+        if (rsaAuthentication()) {
+            dataUser = new DataUser();
+            dataUser.setBalance(Sodumoi);
+            dataUser.setCardId(ConnectCard.getInstance().strID);
+            boolean check = dataUserDAO.updateBalance(dataUser);
+            
+            // Kiểm tra và thông báo thanh toán thành công
+            if (check && ConnectCard.getInstance().TopUp(data)) {
+                JOptionPane.showMessageDialog(null, "Thanh Toán thành công");
+                
+                // Cập nhật trạng thái của cuộc hẹn thành đã thanh toán
+                dataUserDAO.updateAppointmentStatus(ConnectCard.getInstance().strID.trim());
+                
+                // Thông báo cho máy chủ rằng thanh toán đã thành công
+                String accessToken = dataUserDAO.getTokenFromDatabase(ConnectCard.getInstance().strID);
+                String jsonData = "{\"id\": \"" + ConnectCard.getInstance().strID + "\", \"amount\": " + Tongtien + "}";
+                try {
+                    String responseJson = sendHttpPostRequest(API_URL_PAYMENT_SUCCESS, jsonData, accessToken);                    
+                // Phân tích phản hồi JSON và kiểm tra statusCode
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) parser.parse(responseJson);
+                long statusCode = (long) jsonObject.get("statusCode");
+
+                // Kiểm tra statusCode để xác định xem phản hồi có thành công hay không
+                if (statusCode == 200) {
+                    // Xử lý khi phản hồi thành công
+                    System.out.println("Phản hồi thành công");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Lỗi Thanh Toán");
+                    // Xử lý khi phản hồi không thành công
+                    System.out.println("Phản hồi không thành công");
                 }
+                } catch (Exception e) {
+                    // Xử lý khi gặp lỗi trong quá trình gửi yêu cầu hoặc phân tích phản hồi từ máy chủ
+                    e.printStackTrace();
+                }
+                
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Lỗi Xác Thực");
+                JOptionPane.showMessageDialog(null, "Lỗi Thanh Toán");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Lỗi Xác Thực");
         }
+    }
 
     }//GEN-LAST:event_btn_thanhToanActionPerformed
 

@@ -10,42 +10,38 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URL;  
 
 /**
  *
  * @author admin
  */
 public class APIClient {
-     public static void main(String[] args) throws Exception {
-       
-      
-        // URL của API bạn muốn gọi
-        String apiUrl = "http://localhost:3000/test";
 
-        // Gọi phương thức GET và in ra đoạn text nhận được
-        String responseText = sendHttpGetRequest(apiUrl);
-        System.out.println("Response Text: " + responseText);
-        
-         String cardNumber = "012314324";
-         Double amount = 23.3;
-        
-         String jsonData = "{\"cardNumber\": \"" + cardNumber + "\", \"amount\": " + amount + "}";
-         
-         String responsePostText = sendHttpPostRequest(apiUrl, jsonData);
-         System.out.println("responsePostText: " + responsePostText);
-        
-    }
-     
-  
-       
-    
-     
-
+//     public static void main(String[] args) throws Exception {
+//       
+//      
+//        // URL của API bạn muốn gọi
+//        String apiUrl = "http://localhost:3000/test";
+//
+//        // Gọi phương thức GET và in ra đoạn text nhận được
+//        String responseText = sendHttpGetRequest(apiUrl);
+//        System.out.println("Response Text: " + responseText);
+//        
+//         String cardNumber = "012314324";
+//         Double amount = 23.3;
+//        
+//         String jsonData = "{\"cardNumber\": \"" + cardNumber + "\", \"amount\": " + amount + "}";
+//         
+//         String responsePostText = sendHttpPostRequest(apiUrl, jsonData);
+//         System.out.println("responsePostText: " + responsePostText);
+//        
+//    }
     // Phương thức thực hiện HTTP GET request và trả về dữ liệu nhận được
-    private static String sendHttpGetRequest(String apiUrl) throws IOException {
+    public static String sendHttpGetRequest(String apiUrl, String accessToken) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("Authorization", "Bearer " + accessToken); // Thiết lập Authorization header
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
             StringBuilder result = new StringBuilder();
@@ -57,11 +53,11 @@ public class APIClient {
         }
     }
 
-    // Phương thức thực hiện HTTP PUT request để cập nhật dữ liệu
-    private static void sendHttpPutRequest(String apiUrl, String data) throws IOException {
+    public static void sendHttpPutRequest(String apiUrl, String data, String accessToken) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
         connection.setRequestMethod("PUT");
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Authorization", "Bearer " + accessToken); // Thiết lập Authorization header
         connection.setDoOutput(true);
 
         try (OutputStream outputStream = connection.getOutputStream()) {
@@ -73,11 +69,13 @@ public class APIClient {
         System.out.println("PUT Response Code: " + responseCode);
     }
 
-    // Phương thức thực hiện HTTP POST request và trả về ID của bài post mới tạo
-    private static String sendHttpPostRequest(String apiUrl, String data) throws IOException {
+    
+
+    public static String sendHttpPostRequest(String apiUrl, String data, String accessToken) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Authorization", "Bearer " + accessToken); // Thiết lập Authorization header
         connection.setDoOutput(true);
 
         try (OutputStream outputStream = connection.getOutputStream()) {
@@ -94,4 +92,5 @@ public class APIClient {
             return result.toString();
         }
     }
+    
 }

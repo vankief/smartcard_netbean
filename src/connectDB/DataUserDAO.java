@@ -405,6 +405,31 @@ public class DataUserDAO {
         return success;
     }
 
+    public String getTokenFromDatabase(String maBN) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        String token = null;
+        int maxLength = 3;
+        String idString = maBN.substring(maxLength);
+        int smartcardId = Integer.parseInt(idString);
+        try {
+            connection = getConnection();
+            String sql = "SELECT token FROM smart_card_entity WHERE id = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, smartcardId);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                token = resultSet.getString("token");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
+        return token;
+    }
+
     public static String convertDateFormat(Date inputDate) {
         DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return outputDateFormat.format(inputDate);

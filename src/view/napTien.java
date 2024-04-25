@@ -5,6 +5,9 @@
  */
 package view;
 
+import static Https.APIClient.sendHttpPostRequest;
+import static Https.CONSTANT.API_URL_DEPOSIT_SUCCESS;
+import static Https.CONSTANT.API_URL_PAYMENT_SUCCESS;
 import connectDB.DataUserDAO;
 import connectDB.DataUser;
 import java.nio.ByteBuffer;
@@ -17,6 +20,8 @@ import javacard.utils.RandomUtil;
 import javax.smartcardio.CardException;
 import javax.swing.JOptionPane;
 import jdk.nashorn.internal.parser.TokenType;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -122,6 +127,27 @@ public class napTien extends javax.swing.JFrame {
             boolean check = dataUserDAO.updateBalance(dataUser);
             if (check && ConnectCard.getInstance().TopUp(data)) {
                 JOptionPane.showMessageDialog(null, "Nạp Tiền Thành Công");
+                 String accessToken = dataUserDAO.getTokenFromDatabase(ConnectCard.getInstance().strID);
+                  String jsonData = "{\"id\": \"" + ConnectCard.getInstance().strID + "\", \"amount\": " + SoTienNap + "}";
+                  try {
+                    String responseJson = sendHttpPostRequest(API_URL_DEPOSIT_SUCCESS, jsonData, accessToken);                    
+                // Phân tích phản hồi JSON và kiểm tra statusCode
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) parser.parse(responseJson);
+                long statusCode = (long) jsonObject.get("statusCode");
+
+                // Kiểm tra statusCode để xác định xem phản hồi có thành công hay không
+                if (statusCode == 200) {
+                    // Xử lý khi phản hồi thành công
+                    System.out.println("Phản hồi thành công");
+                } else {
+                    // Xử lý khi phản hồi không thành công
+                    System.out.println("Phản hồi không thành công");
+                }
+                } catch (Exception e) {
+                    // Xử lý khi gặp lỗi trong quá trình gửi yêu cầu hoặc phân tích phản hồi từ máy chủ
+                    e.printStackTrace();
+                }
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Lỗi Nạp Tiền");
