@@ -342,8 +342,9 @@ public class nguoiDung extends javax.swing.JFrame {
         try {
             thanhToan = new thanhToan();
         } catch (SQLException ex) {
-            Logger.getLogger(nguoiDung.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // Xử lý ngoại lệ SQLException ở đây
+        Logger.getLogger(nguoiDung.class.getName()).log(Level.SEVERE, null, ex);
+    }
         thanhToan.setVisible(true);
     }//GEN-LAST:event_btn_thanhToanActionPerformed
     private void initInformation() {

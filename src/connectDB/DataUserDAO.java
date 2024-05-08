@@ -61,7 +61,7 @@ public class DataUserDAO {
         Connection con = getConnection();
         String sql = "SELECT smart_card_entity.name, smart_card_entity.id, smart_card_entity.dob, smart_card_entity.address, smart_card_entity.gender, smart_card_entity.phone, smart_card_entity.publicKey, smart_card_entity.balance, smart_card_entity.createdAt\n"
                 + "FROM smart_card_entity\n"
-                + "JOIN patient_entity ON patient_entity.id = smart_card_entity.patientId\n"
+                + "JOIN patient_entity ON smart_card_entity.id = patient_entity.smartcardId\n"
                 + "WHERE patient_entity.smartCardStatus = 'PENDING';";
         String maBV = "BN";
         int maxLength = 3;
@@ -317,7 +317,7 @@ public class DataUserDAO {
 
         try {
 
-            String sql = "SELECT appointment_entity.fee, doctor_entity.name AS doctorName, specialist_entity.name AS specialistName "
+            String sql = "SELECT appointment_entity.id, appointment_entity.fee, doctor_entity.name AS doctorName, specialist_entity.name AS specialistName "
                     + "FROM appointment_entity "
                     + "JOIN doctor_entity ON appointment_entity.doctorId = doctor_entity.id "
                     + "JOIN specialist_entity ON doctor_entity.specialistId = specialist_entity.id "
@@ -328,10 +328,11 @@ public class DataUserDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
+                String appointmentId = resultSet.getString("id");
                 int fee = resultSet.getInt("fee");
                 String doctorName = resultSet.getString("doctorName");
                 String specialistName = resultSet.getString("specialistName");
-                HoaDon hoaDon = new HoaDon(doctorName, specialistName, fee);
+                HoaDon hoaDon = new HoaDon(appointmentId, doctorName, specialistName, fee);
                 hoaDonList.add(hoaDon);
             }
         } catch (SQLException e) {
@@ -374,7 +375,7 @@ public class DataUserDAO {
             connection = getConnection();
             String updateSql = "UPDATE appointment_entity "
                     + "SET status = 'APPROVED' "
-                    + "WHERE patientId = (SELECT patientId FROM smart_card_entity WHERE smartcardId = ?) "
+                    + "WHERE patientId = (SELECT id FROM patient_entity WHERE smartcardId = ?) "
                     + "AND status = 'AWAITING_PAYMENT' "
                     + "AND paymentType = 'SMARTCARD'";
             statement = connection.prepareStatement(updateSql);

@@ -25,6 +25,7 @@ import javacard.utils.RandomUtil;
 import javax.smartcardio.CardException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -152,29 +153,13 @@ public class thanhToan extends javax.swing.JFrame {
                 // Cập nhật trạng thái của cuộc hẹn thành đã thanh toán
                 dataUserDAO.updateAppointmentStatus(ConnectCard.getInstance().strID.trim());
                 
-                // Thông báo cho máy chủ rằng thanh toán đã thành công
-                String accessToken = dataUserDAO.getTokenFromDatabase(ConnectCard.getInstance().strID);
-                String jsonData = "{\"id\": \"" + ConnectCard.getInstance().strID + "\", \"amount\": " + Tongtien + "}";
-                try {
-                    String responseJson = sendHttpPostRequest(API_URL_PAYMENT_SUCCESS, jsonData, accessToken);                    
-                // Phân tích phản hồi JSON và kiểm tra statusCode
-                JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(responseJson);
-                long statusCode = (long) jsonObject.get("statusCode");
-
-                // Kiểm tra statusCode để xác định xem phản hồi có thành công hay không
-                if (statusCode == 200) {
-                    // Xử lý khi phản hồi thành công
-                    System.out.println("Phản hồi thành công");
-                } else {
-                    // Xử lý khi phản hồi không thành công
-                    System.out.println("Phản hồi không thành công");
-                }
-                } catch (Exception e) {
-                    // Xử lý khi gặp lỗi trong quá trình gửi yêu cầu hoặc phân tích phản hồi từ máy chủ
-                    e.printStackTrace();
+                // Lấy danh sách appointmentId để gửi lên máy chủ
+                List<String> appointmentIds = new ArrayList<>();
+                for (HoaDon hoaDon : list) {
+                    appointmentIds.add(hoaDon.getAppointmentId());
                 }
                 
+                notifyPaymentSuccessToServer(Sodumoi, appointmentIds);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Lỗi Thanh Toán");
@@ -271,6 +256,38 @@ public class thanhToan extends javax.swing.JFrame {
         }
         return false;
     }
+    private void notifyPaymentSuccessToServer(int totalAmount, List<String> appointmentIds) {
+    String accessToken = dataUserDAO.getTokenFromDatabase(ConnectCard.getInstance().strID);
+    
+   // Chuyển danh sách appointmentId thành chuỗi JSON
+    JSONArray appointmentIdsJsonArray = new JSONArray(); // Sử dụng constructor không có đối số
+    for (String appointmentId : appointmentIds) {
+        appointmentIdsJsonArray.add(appointmentId);
+    }
+    String jsonData = "{\"appointmentIds\": " + appointmentIdsJsonArray.toString() + ", \"totalAmount\": " + totalAmount + "}";
+    
+    try {
+        // Gửi yêu cầu POST lên máy chủ
+        String responseJson = sendHttpPostRequest(API_URL_PAYMENT_SUCCESS, jsonData, accessToken);
+        
+        // Phân tích phản hồi JSON và kiểm tra statusCode
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(responseJson);
+        long statusCode = (long) jsonObject.get("statusCode");
+
+        // Kiểm tra statusCode để xác định xem phản hồi có thành công hay không
+        if (statusCode == 200) {
+            // Xử lý khi phản hồi thành công
+            System.out.println("Phản hồi thành công");
+        } else {
+            // Xử lý khi phản hồi không thành công
+            System.out.println("Phản hồi không thành công");
+        }
+    } catch (Exception e) {
+        // Xử lý khi gặp lỗi trong quá trình gửi yêu cầu hoặc phân tích phản hồi từ máy chủ
+        e.printStackTrace();
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Huy;
